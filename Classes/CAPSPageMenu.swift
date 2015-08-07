@@ -391,10 +391,18 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
             menuItemView.titleLabel!.textColor = unselectedMenuItemLabelColor
             
             // Set title depending on if controller has a title set
-            if controller.title != nil {
-                menuItemView.titleLabel!.text = controller.title!
+            if (controller as! UITableViewController).title != nil {
+                let image = UIImage(named: (controller as! UITableViewController).title!)
+                let view_image = UIImageView(image:image)
+                view_image.tag = 1
+                view_image.center = CGPointMake(menuItemView.frame.size.width / 2, menuItemView.frame.size.height / 2)
+                menuItemView.addSubview(view_image)
             } else {
-                menuItemView.titleLabel!.text = "Menu \(Int(index) + 1)"
+                if controller.title != nil {
+                    menuItemView.titleLabel!.text = controller.title!
+                } else {
+                    menuItemView.titleLabel!.text = "Menu \(Int(index) + 1)"
+                }
             }
             
             // Add separator between menu items when using as segmented control
