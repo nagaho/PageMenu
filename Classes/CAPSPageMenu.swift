@@ -26,7 +26,7 @@ import UIKit
     optional func didMoveToPage(controller: UIViewController, index: Int)
 }
 
-class MenuItemView: UIView {
+public class MenuItemView: UIView {
     // MARK: - Menu item view
     
     var titleLabel : UILabel?
