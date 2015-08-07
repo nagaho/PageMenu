@@ -420,7 +420,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         }
         
         if startingPageIndex > 0 && startingPageIndex < controllerArray.count {
-            controllerScrollView.setContentOffset(CGPoint(x: self.view.frame.width * CGFloat(startingPageIndex), y: self.controllerScrollView.contentOffset.y), an
+            controllerScrollView.setContentOffset(CGPoint(x: self.view.frame.width * CGFloat(startingPageIndex), y: self.controllerScrollView.contentOffset.y), animated: false)
         }
         
         // Set new content size for menu scroll view if needed
