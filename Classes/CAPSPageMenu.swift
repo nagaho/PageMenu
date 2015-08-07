@@ -439,13 +439,15 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         var selectionIndicatorFrame : CGRect = CGRect()
         
         if useMenuLikeSegmentedControl {
-            selectionIndicatorFrame = CGRectMake(CGFloat(startingPageIndex), menuHeight - selectionIndicatorHeight, self.view.frame.width / CGFloat(controllerArray.count), selectionIndicatorHeight)
+            //selectionIndicatorFrame = CGRectMake(CGFloat(startingPageIndex), menuHeight - selectionIndicatorHeight, self.view.frame.width / CGFloat(controllerArray.count), selectionIndicatorHeight)
+            selectionIndicatorFrame = CGRectMake(CGFloat(startingPageIndex) * self.view.frame.width / CGFloat(controllerArray.count), menuHeight - selectionIndicatorHeight, self.view.frame.width / CGFloat(controllerArray.count), selectionIndicatorHeight)
         } else if menuItemWidthBasedOnTitleTextWidth {
             var startingPageMenuOffset : CGFloat = 0.0
             for i in 0...startingPageIndex {
                 startingPageMenuOffset += menuItemWidths[i]
             }
-            selectionIndicatorFrame = CGRectMake(menuMargin, menuHeight - selectionIndicatorHeight, menuItemWidths[startingPageIndex], selectionIndicatorHeight)
+            //selectionIndicatorFrame = CGRectMake(menuMargin, menuHeight - selectionIndicatorHeight, menuItemWidths[startingPageIndex], selectionIndicatorHeight)
+            selectionIndicatorFrame = CGRectMake(menuMargin + startingPageMenuOffset, menuHeight - selectionIndicatorHeight, menuItemWidths[startingPageIndex], selectionIndicatorHeight)
         } else {
             var startingPageMenuOffset : CGFloat = (menuItemWidth + menuMargin) * CGFloat(startingPageIndex)
             if centerMenuItems  {
@@ -712,6 +714,11 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
                 } else if self.menuItemWidthBasedOnTitleTextWidth {
                     selectionIndicatorWidth = self.menuItemWidths[pageIndex]
                     selectionIndicatorX = CGRectGetMinX(self.menuItems[pageIndex].frame)
+                    if pageIndex > 0 {
+                        for i in 0...(pageIndex - 1) {
+                            selectionIndicatorX += (self.menuMargin + self.menuItemWidths[i])
+                        }
+                    }
                 } else {
                     if self.centerMenuItems && pageIndex == 0 {
                         selectionIndicatorX = self.startingMenuMargin + self.menuMargin
